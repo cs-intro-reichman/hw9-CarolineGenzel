@@ -53,25 +53,18 @@ public class LinkedList {
 		if (index < 0 || index > size) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
-		}
-		Node t = first;
-		if(index == size){
-			return last;
-		}
-		
-		while(t != null && index > 0)
-		{
-			t = t.next;
-			index--;
-		}
-			if(t!=null){
-				return t;
-			}
-			
-		return null;
-	}
 
-	
+		}
+	else if (index == 0){
+		    return this.getFirst();	}
+
+	else { Node current = this.first;
+		for (int i = 0; i < index; i++) {
+			current = current.next;	}
+					return current;
+					}
+				}	
+		
 	/**
 	 * Creates a new Node object that points to the given memory block, 
 	 * and inserts the node at the given index in this list.
@@ -110,11 +103,7 @@ public class LinkedList {
 		}
 
 	}
-		
-
-
 	
-
 	/**
 	 * Creates a new node that points to the given memory block, and adds it
 	 * to the end of this list (the node will become the list's last element).
@@ -173,6 +162,7 @@ public class LinkedList {
 	 */
 	public MemoryBlock getBlock(int index) {
 		return this.getNode(index).block;
+		// go back to the function and run it
 	}
 
 	/**
