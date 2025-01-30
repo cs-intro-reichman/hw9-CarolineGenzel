@@ -87,22 +87,29 @@ public class LinkedList {
 	 */
 	public void add(int index, MemoryBlock block) {
 		if (index < 0 || index > size) {
-			throw new IllegalArgumentException(
-					"index must be between 0 and size");
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
-		if (index == 0){
-			addFirst(block);
-		}
-		else if (index == size){
-			addLast(block);
-		}
+	
+		Node current = new Node(block);
+		if (index == 0) {
+			current.next = first;
+			first = current;
+			
+			if (size == 0) {
+				last = current;
+			}
+		} 
+		else if (index == size) {
+			last.next = current;
+			last = current;
+		} 
 		else {
-			Node newNode = new Node(block);
-			newNode.next = getNode(index);
-			getNode(index-1).next = newNode;
-			this.size++;
+			Node prev = getNode(index - 1); 
+			current.next = prev.next;
+			prev.next = current;
 		}
-
+	
+		size++;
 	}
 	
 	/**
