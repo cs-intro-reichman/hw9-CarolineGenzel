@@ -58,7 +58,8 @@ public class LinkedList {
 	else if (index == 0){
 		    return this.getFirst();	}
 
-	else { Node current = this.first;
+	else {
+		 Node current = this.first;
 		for (int i = 0; i < index; i++) {
 			current = current.next;	}
 					return current;

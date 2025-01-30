@@ -98,25 +98,18 @@ public class MemorySpace {
 		if(allocatedList.getSize() == 0){
 			throw new IllegalArgumentException(
 					"the index is not in the parameters");
-			}
-			MemoryBlock block = null;
-			ListIterator allocatedIterator = allocatedList.iterator();
-	
-			while (allocatedIterator.hasNext()){
-			
-				MemoryBlock current = allocatedIterator.next();
-				if ( address == current.baseAddress){
-					block= current;
-					 break;
-				}
-			}
-	
-			if (block != null){
-				freeList.addLast( block );
-				allocatedList.remove(block );
-			}
+		}
+	Node current = allocatedList.getFirst();
+	while(current != null) {
+		MemoryBlock al = current.block;
+		 if(al.baseAddress == address){ 
+			allocatedList.remove(al);
+			freeList.addLast(al);
+			return;
+					}
+	current=current.next;
 	}
-	
+}
 	/**
 	 * A textual representation of the free list and the allocated list of this memory space, 
 	 * for debugging purposes.
