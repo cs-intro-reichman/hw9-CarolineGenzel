@@ -57,32 +57,33 @@ public class MemorySpace {
 	 *        the length (in words) of the memory block that has to be allocated
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
-	public int malloc(int length) {		
+	public int malloc(int length) {        
 		if (length <= 0) {
 			throw new IllegalArgumentException("length should be positive");
 		}
 	
-		ListIterator freeIterator = freeList.iterator();
+		ListIterator freeIterator =freeList.iterator();
 	
 		while (freeIterator.hasNext()) {
 			MemoryBlock current = freeIterator.next();
+	
 			if (current.length == length) {
 				allocatedList.addLast(current);
 				freeList.remove(current);
 				return current.baseAddress;
 			} 
-			else 
-			if (current.length > length) {
+			else if (current.length > length) {
 				MemoryBlock block = new MemoryBlock(current.baseAddress, length);
 				allocatedList.addLast(block);
 				current.baseAddress += length;
-				current.length -=length;
+				current.length -= length;
 				return block.baseAddress;
 			}
 		}
 	
-		return -1;
+		return -1;  
 	}
+	
 
 
 	/**
@@ -125,7 +126,7 @@ public class MemorySpace {
 	 */
 	public void defrag() {
 
-		if (freeList.getSize()<=1) {
+		if (freeList.getSize() <=1) {
 			return; 
 		}
 		ListIterator freeIterator = freeList.iterator();
