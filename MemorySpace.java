@@ -62,26 +62,25 @@ public class MemorySpace {
 			throw new IllegalArgumentException("length should be positive");
 		}
 	
-		ListIterator freeIterator =freeList.iterator();
-	
-		while (freeIterator.hasNext()) {
-			MemoryBlock current = freeIterator.next();
-	
-			if (current.length == length) {
+		ListIterator iterator = freeList.iterator();
+		
+		while (iterator.hasNext()) {
+			MemoryBlock current = iterator.next(); 
+			
+			if (current.length == length) { 
 				allocatedList.addLast(current);
 				freeList.remove(current);
-				return current.baseAddress;
-			} 
-			else if (current.length > length) {
-				MemoryBlock block = new MemoryBlock(current.baseAddress, length);
-				allocatedList.addLast(block);
-				current.baseAddress += length;
-				current.length -= length;
-				return block.baseAddress;
+				return current.baseAddress; 
+			}
+			if (current.length > length) {
+				MemoryBlock newBlock = new MemoryBlock(current.baseAddress , length); 
+				allocatedList.addLast(newBlock);
+				current.baseAddress += length; 
+				current.length -= length; 
+				return newBlock.baseAddress; 
 			}
 		}
-	
-		return -1;  
+		return -1; 
 	}
 	
 
@@ -98,7 +97,7 @@ public class MemorySpace {
 		
 		if(allocatedList.getSize() == 0){
 			throw new IllegalArgumentException(
-					"the index is not in the parameters");
+					"index must be between 0 and size");
 		}
 	Node current = allocatedList.getFirst();
 	while(current != null) {
