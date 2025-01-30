@@ -125,7 +125,7 @@ public class MemorySpace {
 	 */
 	public void defrag() {
 
-		if (freeList.getSize() <=1) {
+		if (freeList.getSize() <= 1) {
 			return; 
 		}
 		ListIterator freeIterator = freeList.iterator();
