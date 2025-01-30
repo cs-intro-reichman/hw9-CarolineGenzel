@@ -95,20 +95,23 @@ public class MemorySpace {
 	 */
 	public void free(int address) {
 		
-		if(allocatedList.getSize() == 0){
-			throw new IllegalArgumentException(
-					"index must be between 0 and size");
+		if (allocatedList.getSize() == 0) {
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
-	Node current = allocatedList.getFirst();
-	while(current != null) {
-		MemoryBlock al = current.block;
-		 if(al.baseAddress == address){ 
-			allocatedList.remove(al);
-			freeList.addLast(al);
-			return;
-					}
-	current=current.next;
-	}
+		
+		Node current = allocatedList.getFirst();
+		
+		for(int i = 0; i < allocatedList.getSize(); i++) {
+			MemoryBlock allocatedBlock = current.block;
+			if(allocatedBlock.baseAddress == address) {
+				allocatedList.remove(current);
+				freeList.addLast(allocatedBlock);
+				return;
+			}
+			
+			current = current.next;
+		}
+	
 }
 	/**
 	 * A textual representation of the free list and the allocated list of this memory space, 
